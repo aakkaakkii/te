@@ -1,0 +1,33 @@
+package org.example.testruleengine.dlsResolver.resolverImpl;
+
+import org.example.testruleengine.dlsResolver.DSLResolver;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+@Service
+public class BankResolver implements DSLResolver {
+    private static final String RESOLVER_KEYWORD = "bank";
+    private static final String INTEREST = "interest";
+    private static final String TARGET_DONE = "target_done";
+
+    @Override
+    public String getResolverKeyword() {
+        return RESOLVER_KEYWORD;
+    }
+
+    @Override
+    public Object resolveValue(String keyword, Map<String, Object> context) {
+        if (keyword.equalsIgnoreCase(INTEREST)){
+            //Code to calculate the current variable interest rates.
+            return 9.0;
+        }
+
+        if (keyword.equalsIgnoreCase(TARGET_DONE)){
+            //Code to see the bank target of giving loan for this current year is done or not.
+            return false;
+        }
+
+        return null;
+    }
+}
