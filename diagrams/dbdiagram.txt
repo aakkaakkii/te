@@ -1,0 +1,50 @@
+
+Table AML_ROUTE_RULE {
+  id integer [primary key]
+  rule_code varchar
+  client_type integer
+  status varchar // active, inactive
+  rule_json_condition blob
+  rule_condition blob
+  creation_user varchar
+  creation_date date 
+}
+
+Table RULE_COMPONENTS {
+  id integer [primary key]
+  description varchar
+}
+
+Table RULE_COMPONENTS_AML_ROUTE_RULE {
+  rule_component_id integer
+  route_rule_id integer
+}
+
+Table AML_ROUTE_RULE_RESTRICTION_BANK {
+  route_rule_id integer
+  restriction_bank_id integer
+}
+
+Table AML_ROUTE_CLIENT_TYPE {
+  id integer [primary key]
+  client_type varchar
+  client_type_description varchar
+}
+
+
+// ????? Probably is used in search
+Table AML_ROUTE_RULE_FIELDS_VALUES {
+  id integer [primary key]
+  rule_id integer
+  field_code varchar
+  field_value varchar
+}
+
+Ref: AML_ROUTE_RULE_RESTRICTION_BANK.route_rule_id > AML_ROUTE_RULE.id
+
+Ref: AML_ROUTE_CLIENT_TYPE.id < AML_ROUTE_RULE.client_type
+
+Ref: AML_ROUTE_RULE_FIELDS_VALUES.id - AML_ROUTE_RULE.id
+
+Ref: RULE_COMPONENTS_AML_ROUTE_RULE.rule_component_id - RULE_COMPONENTS.id
+Ref: RULE_COMPONENTS_AML_ROUTE_RULE.route_rule_id - AML_ROUTE_RULE.id
